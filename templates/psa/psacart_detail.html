@@ -1,0 +1,62 @@
+{% extends "psa/base.html" %}
+{% load i18n psa_tags crispy_forms_tags %}
+
+{% block psa_content %}
+<h1>{% trans 'Cart Details' %}</h1>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>{% trans 'Image' %}</th>
+        <th>{% trans 'Product Number' %}</th>
+        <th>{% trans 'Location' %}</th>
+        <th>{% trans 'Product' %}</th>
+        <th>{% trans 'Quantity' %}</th>
+    </tr>
+    {% for obj in cart.psaitems.all %}
+    <tr>
+        <td>
+            <img src="{{ obj.item.image.url }}" 
+                 alt="{% trans 'Product image' %}"
+                 class="img-responsive" 
+                 width="100"
+                 height="100">
+        </td><td>
+            {{ obj.item.number }}
+        </td><td>
+            {{ obj.item.get_location_display }}
+        </td><td>
+            {{ obj.item.name }} 
+        </td><td>
+            {{ obj.quantity }} 
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <a class="btn btn-primary" href="#" role="button" data-toggle="modal"
+        data-target="#CartForm">{% trans 'Print Cart' %}</a>
+    <a class="btn btn-default" href="/psa/" role="button">
+        {% trans 'Cancel' %} </a>
+</div>
+<div class="modal fade" id="CartForm" tabindex="-1" role="dialog"
+    aria-hidden="true" aria-labelledby="CartFormLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" id="CartFormLabel">Entnahmeschein</h3>
+            </div>
+            <div class="modal-body">
+                {{ form|crispy }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                    data-dismiss="modal">{% trans "Cancel" %}</button>
+                <button type="button" class="btn btn-primary">
+                    {% trans "Print Cart" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock psa_content %}

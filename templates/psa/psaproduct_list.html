@@ -1,0 +1,43 @@
+{% extends "psa/base.html" %}
+{% load i18n psa_tags %}
+
+{% block psa_content %}
+<h1>
+    {{ category.name }}
+    {% if 'psa.change_psaproduct' in perms %}
+    <a role="button" class="close" aria-label="Edit"
+        href="{% url 'admin:psa_psacategory_change' category.id %}">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    </a>
+    {% endif %}
+</h1>
+<div class="panel panel-default">
+    <div class="panel-body" style="color:#41940e;">
+        {{ category.teaser|markup }}
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    {% for item in object_list %}
+    <tr>
+        <td>
+            <img src="{{ item.image.url }}" 
+                 alt="{% trans 'Product image' %}"
+                 class="img-responsive" 
+                 width="100"
+                 height="100">
+        </td>
+        <td>
+            <h4><a href="{% url 'item_detail' item.id %}">
+                {{ item.name }} 
+                <small>({{ item.get_location_display }})</small>
+            </a></h4>
+            <div>
+                <b>{% trans "Product Number" %}:</b> {{ item.number }}
+            </div>
+            <div>{{ item.description|markup }}</div>
+            <div>{{ item.teaser }}</div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock psa_content %}

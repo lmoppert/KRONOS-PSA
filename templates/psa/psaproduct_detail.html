@@ -1,0 +1,28 @@
+{% extends "psa/base.html" %}
+{% load i18n psa_tags %}
+
+{% block psa_content %}
+<h1>
+    {{ object.name }} <small>({{ object.get_location_display }})
+    {% if 'psa.change_object' in perms %}
+    <a role="button" class="close" aria-label="Edit"
+        href="{% url 'admin:psa_psaproduct_change' object.id %}">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    </a>
+    {% endif %}
+</h1>
+<div class="row">
+    <div class="col-md-3">
+        <img src="{{ object.image.url }}"
+             alt="{% trans 'Product image' %}"
+             class="img-responsive">
+    </div>
+    <div class="col-md-9">
+            <div>
+                <b>{% trans "Product Number" %}:</b> {{ object.number }} 
+            </div>
+            <div>{{ object.description|markup }}</div>
+            <div>{{ object.teaser }}</div>
+    </div>
+</div>
+{% endblock psa_content %}
