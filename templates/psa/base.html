@@ -3,39 +3,18 @@
 
 {% block top_menu %}
 <ul class="nav navbar-nav">
-    <li class="dropdown">
-        <a id="link_dd" class="navbar-button" role="button" href="#"
-            data-toggle="dropdown">{% trans "Other Sites" %}
-            <span class="caret"></span>
-        </a>
-        <ul id="link_menu" class="dropdown-menu" role="menu"
-            aria-labelledby="link_dd">
-            <li role="presentation">
-                <a role="menuitem" href="https://she-intra.eu.nli.net"
-                    tabindex="-1">
-                    {% trans "Portal" %}</a>
-            </li>
-            <li role="presentation">
-                <a role="menuitem" href="https://chemicals.eu.nli.net"
-                    tabindex="-1">
-                {% trans "Chemicals" %}</a>
-            </li>
-            <li role="presentation">
-                <a role="menuitem" href="http://she.eu.nli.net"
-                    tabindex="-1">
-                {% trans "Legacy Portal" %}</a>
-            </li>
-        </ul>
+    <li role="presentation">
+    <a role="menuitem" href="https://she-intra.eu.nli.net"
+         class="navbar-button">{% trans "Portal" %}</a>
     </li>
-    <form class="navbar-form navbar-left" role="filter">
-        <div class="form-group">
-            <select id="SelectLocation" class="form-control"
-                name="SelectedLocation">
-                <option value="LEV">Standort Leverkusen</option>
-                <option value="NHM">Standort Nordenham</option>
-            </select>
-        </div>
-    </form>
+    <li role="presentation">
+    <a role="menuitem" href="https://chemicals.eu.nli.net"
+         class="navbar-button">{% trans "Chemicals" %}</a>
+    </li>
+    <li role="presentation">
+    <a role="menuitem" href="http://she.eu.nli.net"
+         class="navbar-button">{% trans "Legacy Portal" %}</a>
+    </li>
     <li class="dropdown">
     {% with items=cart.psaitems.count %}
         <a id="cart_dd" href="#" role="button" data-toggle="dropdown"
@@ -64,9 +43,9 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1"
                     href="{% url 'cart_detail' %}">{% trans "View Details" %}
                 </a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1"
+                <!-- li role="presentation"><a role="menuitem" tabindex="-1"
                     href="{% url 'empty_cart' %}">{% trans "Empty List" %}
-                </a></li>
+                </a></li -->
             {% endif %}
         </ul>
         {% endwith %}
@@ -92,6 +71,18 @@
     <div class="row">
         <div class="col-md-4">
             {% block psa_navigation %}
+            <!-- form role="filter" action="#" method="post"
+                onChange="this.form.submit()" >{% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-8">
+                        <select id="SelectLocation" class="form-control"
+                            name="SelectedLocation">
+                            <option value="LEV">Leverkusen</option>
+                            <option value="NHM">Nordenham</option>
+                        </select>
+                    </div>
+                </div>
+            </form -->
             <h3 style="color:#0E509C">{% trans "Categories" %}</h3>
             <ul class="list-unstyled">
                 {% recursetree nodes %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-30 12:32+0200\n"
+"POT-Creation-Date: 2015-05-11 13:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: models.py:15 models.py:48
+#: models.py:15 models.py:48 templates/psa/psarequisition_detail.html:45
 msgid "Description"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Teaser"
 msgstr ""
 
-#: models.py:31 templates/psa/base.html:95
+#: models.py:31 templates/psa/base.html:86
 msgid "Categories"
 msgstr ""
 
@@ -53,16 +53,16 @@ msgstr ""
 msgid "PSA Item"
 msgstr ""
 
-#: models.py:46
+#: models.py:46 templates/psa/psarequisition_detail.html:44
 msgid "Article Number"
 msgstr ""
 
-#: models.py:49 templates/psa/psacart_detail.html:8
+#: models.py:49 templates/psa/psacart_detail.html:18
 msgid "Image"
 msgstr ""
 
-#: models.py:51 models.py:90 models.py:103
-#: templates/psa/psacart_detail.html:10
+#: models.py:51 models.py:93 models.py:109
+#: templates/psa/psacart_detail.html:20
 msgid "Location"
 msgstr ""
 
@@ -82,45 +82,40 @@ msgstr ""
 msgid "Processed"
 msgstr ""
 
-#: models.py:76 models.py:83
+#: models.py:76 models.py:84
 msgid "PSA Cart"
 msgstr ""
 
-#: models.py:77 templates/psa/psacart_detail.html:12
+#: models.py:78 templates/psa/psacart_detail.html:22
 msgid "Quantity"
 msgstr ""
 
-#: models.py:84 models.py:85
+#: models.py:85 models.py:86 templates/psa/psarequisition_detail.html:19
 msgid "Building"
 msgstr ""
 
-#: models.py:86 models.py:99
+#: models.py:87 models.py:125 templates/psa/psarequisition_detail.html:22
 msgid "Phone"
 msgstr ""
 
-#: models.py:87 models.py:100
+#: models.py:88 models.py:130
 msgid "FAX"
 msgstr ""
 
-#: models.py:88
+#: models.py:89 models.py:90 models.py:115
+#: templates/psa/psarequisition_detail.html:16
 msgid "Order Number"
 msgstr ""
 
-#: models.py:96
+#: models.py:104 templates/psa/psarequisition_detail.html:13
 msgid "Name"
 msgstr ""
 
-#: models.py:97 templates/psa/psacart_detail.html:9
-#: templates/psa/psaproduct_detail.html:22
-#: templates/psa/psaproduct_list.html:35
-msgid "Product Number"
-msgstr ""
-
-#: models.py:98
+#: models.py:120
 msgid "Buildiing"
 msgstr ""
 
-#: models.py:101
+#: models.py:135 templates/psa/psarequisition_detail.html:28
 msgid "Email"
 msgstr ""
 
@@ -129,55 +124,85 @@ msgid "Front-end"
 msgstr ""
 
 #: templates/psa/base.html:8
-msgid "Other Sites"
-msgstr ""
-
-#: templates/psa/base.html:16
 msgid "Portal"
 msgstr ""
 
-#: templates/psa/base.html:21
+#: templates/psa/base.html:12
 msgid "Chemicals"
 msgstr ""
 
-#: templates/psa/base.html:26
+#: templates/psa/base.html:16
 msgid "Legacy Portal"
 msgstr ""
 
-#: templates/psa/base.html:42
+#: templates/psa/base.html:21
 msgid "View Cart"
 msgstr ""
 
-#: templates/psa/base.html:52
+#: templates/psa/base.html:31
 msgid "Your cart is empty"
 msgstr ""
 
-#: templates/psa/base.html:65
+#: templates/psa/base.html:44
 msgid "View Details"
 msgstr ""
 
-#: templates/psa/base.html:68
+#: templates/psa/base.html:47
 msgid "Empty List"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:5
+#: templates/psa/psacart_detail.html:15
 msgid "Cart Details"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:11
+#: templates/psa/psacart_detail.html:19
+#: templates/psa/psaproduct_detail.html:22
+#: templates/psa/psaproduct_list.html:35
+msgid "Product Number"
+msgstr ""
+
+#: templates/psa/psacart_detail.html:21
 msgid "Product"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:18
+#: templates/psa/psacart_detail.html:28
 #: templates/psa/psaproduct_detail.html:17
 #: templates/psa/psaproduct_list.html:24
 msgid "Product image"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:36 templates/psa/psacart_detail.html:57
+#: templates/psa/psacart_detail.html:46 templates/psa/psacart_detail.html:68
 msgid "Print Cart"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:38 templates/psa/psacart_detail.html:55
+#: templates/psa/psacart_detail.html:48 templates/psa/psacart_detail.html:66
 msgid "Cancel"
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:9
+msgid "Requisition"
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:10
+msgid "Send signed to..."
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:25
+msgid "Fax"
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:31
+msgid "Barcode"
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:40
+msgid "I want to order the following articles"
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:43
+msgid "Pos."
+msgstr ""
+
+#: templates/psa/psarequisition_detail.html:46
+msgid "Count"
 msgstr ""

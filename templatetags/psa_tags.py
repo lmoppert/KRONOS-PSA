@@ -24,8 +24,7 @@ def markup(text):
 @register.filter
 def barcode(value):
     "generate a barcode for the provided value"
-    barcode = createBarcodeDrawing("Code128", value=value, barHeight=8*mm,
-                                   humanReadable=True, )
+    barcode = createBarcodeDrawing("Code128", value=str(value), barHeight=8*mm,)
     drawing = Drawing(barcode.width, barcode.height)
     drawing.add(barcode, name='barcode')
     data = b64encode(renderPM.drawToString(drawing, fmt='PNG'))

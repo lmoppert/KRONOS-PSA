@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PSA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-30 12:32+0200\n"
+"POT-Creation-Date: 2015-05-11 13:29+0200\n"
 "PO-Revision-Date: 2015-04-28 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -36,7 +36,7 @@ msgstr "Die ausgewählten Produkte aus dem Archiv holen"
 msgid "Category"
 msgstr "Kategorie"
 
-#: models.py:15 models.py:48
+#: models.py:15 models.py:48 templates/psa/psarequisition_detail.html:45
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -44,7 +44,7 @@ msgstr "Beschreibung"
 msgid "Teaser"
 msgstr "Einleitung"
 
-#: models.py:31 templates/psa/base.html:95
+#: models.py:31 templates/psa/base.html:86
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -52,16 +52,16 @@ msgstr "Kategorien"
 msgid "PSA Item"
 msgstr "Artikel"
 
-#: models.py:46
+#: models.py:46 templates/psa/psarequisition_detail.html:44
 msgid "Article Number"
 msgstr "Artikelnummer"
 
-#: models.py:49 templates/psa/psacart_detail.html:8
+#: models.py:49 templates/psa/psacart_detail.html:18
 msgid "Image"
 msgstr "Bild"
 
-#: models.py:51 models.py:90 models.py:103
-#: templates/psa/psacart_detail.html:10
+#: models.py:51 models.py:93 models.py:109
+#: templates/psa/psacart_detail.html:20
 msgid "Location"
 msgstr "Standort"
 
@@ -81,45 +81,40 @@ msgstr "Anwender"
 msgid "Processed"
 msgstr "Abgeschlossen"
 
-#: models.py:76 models.py:83
+#: models.py:76 models.py:84
 msgid "PSA Cart"
 msgstr "Entnahmeliste"
 
-#: models.py:77 templates/psa/psacart_detail.html:12
+#: models.py:78 templates/psa/psacart_detail.html:22
 msgid "Quantity"
 msgstr "Menge"
 
-#: models.py:84 models.py:85
+#: models.py:85 models.py:86 templates/psa/psarequisition_detail.html:19
 msgid "Building"
 msgstr "Gebäude"
 
-#: models.py:86 models.py:99
+#: models.py:87 models.py:125 templates/psa/psarequisition_detail.html:22
 msgid "Phone"
 msgstr "Telefon"
 
-#: models.py:87 models.py:100
+#: models.py:88 models.py:130
 msgid "FAX"
 msgstr "Fax"
 
-#: models.py:88
+#: models.py:89 models.py:90 models.py:115
+#: templates/psa/psarequisition_detail.html:16
 msgid "Order Number"
 msgstr "Auftragsnummer / Kostenstelle"
 
-#: models.py:96
+#: models.py:104 templates/psa/psarequisition_detail.html:13
 msgid "Name"
 msgstr "Name"
 
-#: models.py:97 templates/psa/psacart_detail.html:9
-#: templates/psa/psaproduct_detail.html:22
-#: templates/psa/psaproduct_list.html:35
-msgid "Product Number"
-msgstr "Artikelnummer"
-
-#: models.py:98
+#: models.py:120
 msgid "Buildiing"
 msgstr "Gebäude"
 
-#: models.py:101
+#: models.py:135 templates/psa/psarequisition_detail.html:28
 msgid "Email"
 msgstr "E-Mail"
 
@@ -128,55 +123,85 @@ msgid "Front-end"
 msgstr "Frontend"
 
 #: templates/psa/base.html:8
-msgid "Other Sites"
-msgstr "Weitere Webseiten"
-
-#: templates/psa/base.html:16
 msgid "Portal"
 msgstr "SHE Portal"
 
-#: templates/psa/base.html:21
+#: templates/psa/base.html:12
 msgid "Chemicals"
 msgstr "Chemikalien"
 
-#: templates/psa/base.html:26
+#: templates/psa/base.html:16
 msgid "Legacy Portal"
 msgstr "Altes Portal"
 
-#: templates/psa/base.html:42
+#: templates/psa/base.html:21
 msgid "View Cart"
 msgstr "Entnahmeliste"
 
-#: templates/psa/base.html:52
+#: templates/psa/base.html:31
 msgid "Your cart is empty"
 msgstr "Ihre Entnahmeliste ist bisher leer"
 
-#: templates/psa/base.html:65
+#: templates/psa/base.html:44
 msgid "View Details"
 msgstr "Inhalt anzeigen"
 
-#: templates/psa/base.html:68
+#: templates/psa/base.html:47
 msgid "Empty List"
 msgstr "Inhalt löschen"
 
-#: templates/psa/psacart_detail.html:5
+#: templates/psa/psacart_detail.html:15
 msgid "Cart Details"
 msgstr "Entnahmeliste"
 
-#: templates/psa/psacart_detail.html:11
+#: templates/psa/psacart_detail.html:19
+#: templates/psa/psaproduct_detail.html:22
+#: templates/psa/psaproduct_list.html:35
+msgid "Product Number"
+msgstr "Artikelnummer"
+
+#: templates/psa/psacart_detail.html:21
 msgid "Product"
 msgstr "Produkt"
 
-#: templates/psa/psacart_detail.html:18
+#: templates/psa/psacart_detail.html:28
 #: templates/psa/psaproduct_detail.html:17
 #: templates/psa/psaproduct_list.html:24
 msgid "Product image"
 msgstr "Produkt-Bild"
 
-#: templates/psa/psacart_detail.html:36 templates/psa/psacart_detail.html:57
+#: templates/psa/psacart_detail.html:46 templates/psa/psacart_detail.html:68
 msgid "Print Cart"
 msgstr "Entnahmeschein drucken"
 
-#: templates/psa/psacart_detail.html:38 templates/psa/psacart_detail.html:55
+#: templates/psa/psacart_detail.html:48 templates/psa/psacart_detail.html:66
 msgid "Cancel"
 msgstr "Zurück zum Katalog"
+
+#: templates/psa/psarequisition_detail.html:9
+msgid "Requisition"
+msgstr "Entnahmeschein"
+
+#: templates/psa/psarequisition_detail.html:10
+msgid "Send signed to..."
+msgstr "unterschrieben einsenden an:"
+
+#: templates/psa/psarequisition_detail.html:25
+msgid "Fax"
+msgstr "FAX"
+
+#: templates/psa/psarequisition_detail.html:31
+msgid "Barcode"
+msgstr "Barcode"
+
+#: templates/psa/psarequisition_detail.html:40
+msgid "I want to order the following articles"
+msgstr "Ich möchte folgende PSA-Artikel bestellen:"
+
+#: templates/psa/psarequisition_detail.html:43
+msgid "Pos."
+msgstr "Pos."
+
+#: templates/psa/psarequisition_detail.html:46
+msgid "Count"
+msgstr "Anzahl"

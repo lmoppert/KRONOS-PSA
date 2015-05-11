@@ -73,7 +73,8 @@ class PSACart(models.Model):
 class PSACartItems(models.Model):
     "Class mapping Items to a Cart"
     item = models.ForeignKey(PSAProduct, verbose_name=_("PSA Item"))
-    cart = models.ForeignKey(PSACart, verbose_name=_("PSA Cart"), related_name="psaitems")
+    cart = models.ForeignKey(PSACart, verbose_name=_("PSA Cart"),
+                             related_name="psaitems")
     quantity = models.IntegerField(verbose_name=_("Quantity"))
 
 
@@ -84,20 +85,53 @@ class PSARequisition(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Building"))
     building = models.CharField(max_length=100, verbose_name=_("Building"))
     phone = models.CharField(max_length=100, verbose_name=_("Phone"))
-    fax = models.CharField(max_length=100, verbose_name=_("FAX"))
+    fax = models.CharField(max_length=100, verbose_name=_("FAX"), null=True)
     number = models.CharField(max_length=100, verbose_name=_("Order Number"))
+    email = models.CharField(max_length=100, verbose_name=_("Order Number"),
+                             null=True)
     location = models.CharField(max_length=3, choices=LOCATIONS, default="KRO",
                                 verbose_name=_("Location"))
+
+    def get_absolute_url(self):
+        return reverse('requisition_detail', kwargs={'pk': self.pk})
 
 
 class RequisitionForm(forms.Form):
     "Form for the Requisition"
     LOCATIONS = (('LEV', 'Leverkusen'), ('NHM', 'Nordenham'))
-    name = forms.CharField(max_length=100, label=_("Name"), required=True)
-    number = forms.CharField(max_length=100, label=_("Product Number"), required=True)
-    building = forms.CharField(max_length=100, label=_("Buildiing"), required=True)
-    phone = forms.CharField(max_length=100, label=_("Phone"), required=True)
-    fax = forms.CharField(max_length=100, label=_("FAX"), required=True)
-    email = forms.CharField(max_length=100, label=_("Email"), required=True)
-    location = forms.ChoiceField(choices=LOCATIONS, required=True,
-                                 label=_("Location"), initial='LEV')
+    name = forms.CharField(
+        max_length=100,
+        label=_("Name"),
+        required=True,
+    )
+    location = forms.ChoiceField(
+        choices=LOCATIONS,
+        label=_("Location"),
+        initial='LEV',
+        required=True,
+    )
+    number = forms.CharField(
+        max_length=100,
+        label=_("Order Number"),
+        required=True,
+    )
+    building = forms.CharField(
+        max_length=100,
+        label=_("Buildiing"),
+        required=True,
+    )
+    phone = forms.CharField(
+        max_length=100,
+        label=_("Phone"),
+        required=True,
+    )
+    fax = forms.CharField(
+        max_length=100,
+        label=_("FAX"),
+        required=False,
+    )
+    email = forms.CharField(
+        max_length=100,
+        label=_("Email"),
+        required=False,
+    )

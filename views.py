@@ -3,6 +3,8 @@
 
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
+from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 # from django import forms
 from . import models
 
@@ -59,6 +61,7 @@ class ItemList(FormMixin, ItemListView):
 class CartDetail(FormMixin, ItemDetailView):
     model = models.PSACart
     context_object_name = 'cart'
+    success_url = reverse_lazy('psa_home')
 
     def get_requisition(self, request):
         try:
@@ -66,6 +69,20 @@ class CartDetail(FormMixin, ItemDetailView):
                 cart__processed=False).get(user=request.user)
         except:
             return models.PSARequisition.objects.new(user=request.user)
+
+    def create_requisition(self, form):
+        requisition = models.PSARequisition.objects.create(
+            cart=self.object,
+            name=form.cleaned_data['name'],
+            building=form.cleaned_data['building'],
+            phone=form.cleaned_data['phone'],
+            fax=form.cleaned_data['fax'],
+            number=form.cleaned_data['number'],
+            email=form.cleaned_data['email'],
+            location=form.cleaned_data['location'],
+        )
+        requisition.save()
+        return requisition
 
     def get(self, request, *args, **kwargs):
         self.initial = models.PSARequisition.objects.create
@@ -77,3 +94,18 @@ class CartDetail(FormMixin, ItemDetailView):
         })
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object = models.PSACart.objects.filter(
+            processed=False).get(user=request.user)
+        form = self.get_form(models.RequisitionForm)
+        context = self.get_context_data(form=form, submitted=True)
+        if form.is_valid():
+            requisition = self.create_requisition(form)
+            return redirect(requisition)
+        else:
+            return self.render_to_response(context)
+
+
+class RequisitionDetail(DetailView):
+    model = models.PSARequisition

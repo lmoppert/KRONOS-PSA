@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load i18n psa_tags %}
+
+{% block navbar %}{% endblock %}
+{% block base_content %}
+<div class="row">
+    <div class="col-xs-10">
+        <h3>{% trans 'Requisition' %}</h3>
+        {% trans "Send signed to..." %}
+        <table class="table table-condensed table-bordered">
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <td>{{ object.name }}</td>
+            </tr><tr>
+                <th>{% trans "Order Number" %}</th>
+                <td>{{ object.number }}</td>
+            </tr><tr>
+                <th>{% trans "Building" %}</th>
+                <td>{{ object.building }}</td>
+            </tr><tr>
+                <th>{% trans "Phone" %}</th>
+                <td>{{ object.phone }}</td>
+            </tr><tr>
+                <th>{% trans "Fax" %}</th>
+                <td>{{ object.fax }}</td>
+            </tr><tr>
+                <th>{% trans "Email" %}</th>
+                <td>{{ object.email }}</td>
+            </tr><tr>
+                <th>{% trans "Barcode" %}</th>
+                <td>{{ object.number|barcode }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-2">
+        <img src="{% static "she/img/footerlogo.png" %}">
+    </div>
+</div>
+{% trans "I want to order the following articles" %}
+<table class="table">
+    <tr>
+        <th>{% trans "Pos." %}</th>
+        <th>{% trans "Article Number" %}</th>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Count" %}</th>
+    </tr>
+    {% for item in object.cart.psaitems.all %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.item.number }} {{ item.item.number|barcode }}</td>
+        <td>{{ item.item.name }}</td>
+        <td>{{ item.quantity }} {{ item.quantity|barcode }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+{% block footer %}{% endblock %}
+
