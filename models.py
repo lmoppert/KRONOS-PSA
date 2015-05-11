@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from filer.fields.image import FilerImageField
 from mptt.models import MPTTModel, TreeForeignKey
-from django import forms
 
 
 class PSACategory(MPTTModel):
@@ -75,7 +74,7 @@ class PSACartItems(models.Model):
     item = models.ForeignKey(PSAProduct, verbose_name=_("PSA Item"))
     cart = models.ForeignKey(PSACart, verbose_name=_("PSA Cart"),
                              related_name="psaitems")
-    quantity = models.IntegerField(verbose_name=_("Quantity"))
+    quantity = models.IntegerField(verbose_name=_("Quantity"), default=1)
 
 
 class PSARequisition(models.Model):
@@ -94,44 +93,3 @@ class PSARequisition(models.Model):
 
     def get_absolute_url(self):
         return reverse('requisition_detail', kwargs={'pk': self.pk})
-
-
-class RequisitionForm(forms.Form):
-    "Form for the Requisition"
-    LOCATIONS = (('LEV', 'Leverkusen'), ('NHM', 'Nordenham'))
-    name = forms.CharField(
-        max_length=100,
-        label=_("Name"),
-        required=True,
-    )
-    location = forms.ChoiceField(
-        choices=LOCATIONS,
-        label=_("Location"),
-        initial='LEV',
-        required=True,
-    )
-    number = forms.CharField(
-        max_length=100,
-        label=_("Order Number"),
-        required=True,
-    )
-    building = forms.CharField(
-        max_length=100,
-        label=_("Buildiing"),
-        required=True,
-    )
-    phone = forms.CharField(
-        max_length=100,
-        label=_("Phone"),
-        required=True,
-    )
-    fax = forms.CharField(
-        max_length=100,
-        label=_("FAX"),
-        required=False,
-    )
-    email = forms.CharField(
-        max_length=100,
-        label=_("Email"),
-        required=False,
-    )

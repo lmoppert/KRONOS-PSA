@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
-# from django import forms
+from .forms import RequisitionForm
 from . import models
 
 
@@ -45,6 +45,16 @@ class ItemDetail(FormMixin, ItemDetailView):
 class ItemList(FormMixin, ItemListView):
     model = models.PSAProduct
 
+    def add_item(self, item, quantity):
+        cart = self.get_or_create_cart(self.request.user)
+        cartitem, created = cart.psaitems.get_or_create(item_id=item)
+        if created:
+            cartitem.quantity = int(quantity)
+        else:
+            cartitem.quantity += int(quantity)
+        cartitem.save()
+        return "Item {} added {} times".format(item, quantity)
+
     def get_queryset(self):
         return models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
 
@@ -54,6 +64,17 @@ class ItemList(FormMixin, ItemListView):
         context = self.get_context_data(
             category=category,
             active_id=category.parent_id,
+        )
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
+        message = self.add_item(request.POST['item'], request.POST['quantity'])
+        context = self.get_context_data(
+            category=category,
+            active_id=category.parent_id,
+            message=message
         )
         return self.render_to_response(context)
 
@@ -88,7 +109,7 @@ class CartDetail(FormMixin, ItemDetailView):
         self.initial = models.PSARequisition.objects.create
         self.object = models.PSACart.objects.filter(
             processed=False).get(user=request.user)
-        form = models.RequisitionForm(initial={
+        form = RequisitionForm(initial={
             'name': request.user.get_full_name,
             'email': request.user.email,
         })
@@ -98,7 +119,7 @@ class CartDetail(FormMixin, ItemDetailView):
     def post(self, request, *args, **kwargs):
         self.object = models.PSACart.objects.filter(
             processed=False).get(user=request.user)
-        form = self.get_form(models.RequisitionForm)
+        form = self.get_form(RequisitionForm)
         context = self.get_context_data(form=form, submitted=True)
         if form.is_valid():
             requisition = self.create_requisition(form)
