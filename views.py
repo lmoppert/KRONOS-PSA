@@ -84,6 +84,12 @@ class CartDetail(FormMixin, ItemDetailView):
     context_object_name = 'cart'
     success_url = reverse_lazy('psa_home')
 
+    def get_empty_form(self, request):
+        return RequisitionForm(initial={
+            'name': request.user.get_full_name,
+            'email': request.user.email,
+        })
+
     def get_requisition(self, request):
         try:
             return models.PSARequisition.objects.filter(
@@ -109,10 +115,7 @@ class CartDetail(FormMixin, ItemDetailView):
         self.initial = models.PSARequisition.objects.create
         self.object = models.PSACart.objects.filter(
             processed=False).get(user=request.user)
-        form = RequisitionForm(initial={
-            'name': request.user.get_full_name,
-            'email': request.user.email,
-        })
+        form = self.get_empty_form(request)
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
 
@@ -120,12 +123,21 @@ class CartDetail(FormMixin, ItemDetailView):
         self.object = models.PSACart.objects.filter(
             processed=False).get(user=request.user)
         form = self.get_form(RequisitionForm)
-        context = self.get_context_data(form=form, submitted=True)
         if form.is_valid():
             requisition = self.create_requisition(form)
             return redirect(requisition)
+        if "ch_item" in request.POST:
+            item = self.object.psaitems.get(id=request.POST['ch_item'])
+            item.quantity = int(request.POST['quantity'])
+            item.save()
+            context = self.get_context_data(form=self.get_empty_form(request))
+        elif "rm_item" in request.POST:
+            item = self.object.psaitems.get(id=request.POST['rm_item'])
+            item.delete()
+            context = self.get_context_data(form=self.get_empty_form(request))
         else:
-            return self.render_to_response(context)
+            context = self.get_context_data(form=form, submitted=True)
+        return self.render_to_response(context)
 
 
 class RequisitionDetail(DetailView):

@@ -19,7 +19,7 @@
         <th>{% trans 'Product Number' %}</th>
         <th>{% trans 'Location' %}</th>
         <th>{% trans 'Product' %}</th>
-        <th>{% trans 'Quantity' %}</th>
+        <th colspan="2">{% trans 'Quantity' %}</th>
     </tr>
     {% for obj in cart.psaitems.all %}
     <tr>
@@ -36,7 +36,37 @@
         </td><td>
             {{ obj.item.name }}
         </td><td>
-            {{ obj.quantity }}
+            <div class="row">
+                <form id="change_item_{{ obj.id }}" method="POST">
+                <div class="col-xs-6">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ obj.id }}" name="ch_item">
+                    <input class="text_input textInput form-control"
+                    type="number" name="quantity" maxlength="5"
+                    value="{{ obj.quantity }}">
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit"
+                        class="btn btn-default btn-sm btn-block">
+                        {% trans "Change quantity" %}
+                    </button>
+                </div>
+                </form>
+            </div>
+            <div class="row">
+                <form id="remove_item_{{ obj.id }}" method="POST">
+                <div class="col-xs-6">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ obj.id }}" name="rm_item">
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit"
+                        class="btn btn-danger btn-sm btn-block">
+                        {% trans "Remove" %}
+                    </button>
+                </div>
+                </form>
+            </div>
         </td>
     </tr>
     {% endfor %}
@@ -51,12 +81,14 @@
     aria-labelledby="CartFormLabel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post">{% csrf_token %}
+            <form id="print_requisition" method="post">{% csrf_token %}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title" id="CartFormLabel">Entnahmeschein</h3>
+                <h3 class="modal-title" id="CartFormLabel">
+                    {% trans "Requisition" %}
+                </h3>
             </div>
             <div class="modal-body">
                 {{ form|crispy }}
