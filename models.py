@@ -6,6 +6,19 @@ from filer.fields.image import FilerImageField
 from mptt.models import MPTTModel, TreeForeignKey
 
 
+class PSAProfile(models.Model):
+    "Class that adds some fields to the user class"
+
+    LOCATIONS = (('LEV', 'Leverkusen'), ('NHM', 'Nordenham'))
+    user = models.OneToOneField(User, verbose_name=_("PSAProfile"))
+    location = models.CharField(max_length=3, choices=LOCATIONS, default="KRO",
+                                verbose_name=_("Location"), null=True)
+    building = models.CharField(max_length=100, verbose_name=_("Building"),
+                                null=True)
+    phone = models.CharField(max_length=100, verbose_name=_("Phone"), null=True)
+    fax = models.CharField(max_length=100, verbose_name=_("FAX"), null=True)
+
+
 class PSACategory(MPTTModel):
     "Class for categorisation of PSA items."
 

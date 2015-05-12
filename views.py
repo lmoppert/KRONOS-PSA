@@ -84,10 +84,24 @@ class CartDetail(FormMixin, ItemDetailView):
     context_object_name = 'cart'
     success_url = reverse_lazy('psa_home')
 
+    def save_user_profile(self, user, data):
+        profile = user.psaprofile
+        profile.location = data.location
+        profile.building = data.building
+        profile.phone = data.phone
+        profile.fax = data.fax
+        profile.save()
+
     def get_empty_form(self, request):
+        user = request.user
+        profile, created = models.PSAProfile.objects.get_or_create(user=user)
         return RequisitionForm(initial={
-            'name': request.user.get_full_name,
-            'email': request.user.email,
+            'name': user.get_full_name,
+            'email': user.email,
+            'location': profile.location,
+            'building': profile.building,
+            'phone': profile.phone,
+            'fax': profile.fax,
         })
 
     def get_requisition(self, request):
@@ -120,11 +134,13 @@ class CartDetail(FormMixin, ItemDetailView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        user = request.user
         self.object = models.PSACart.objects.filter(
-            processed=False).get(user=request.user)
+            processed=False).get(user=user)
         form = self.get_form(RequisitionForm)
         if form.is_valid():
             requisition = self.create_requisition(form)
+            self.save_user_profile(user, requisition)
             return redirect(requisition)
         if "ch_item" in request.POST:
             item = self.object.psaitems.get(id=request.POST['ch_item'])
