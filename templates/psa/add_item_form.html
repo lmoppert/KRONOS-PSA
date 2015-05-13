@@ -1,0 +1,12 @@
+{% load i18n psa_tags %}
+<form id="add_item_{{ item.id }}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" value="{{ item.id }}" name="item">
+    <div class="col-xs-2">
+        <input class="text_input textInput form-control"
+        type="number" name="quantity" maxlength="5" value="1">
+    </div>
+    <button type="submit" class="btn btn-primary">
+        {% trans "Add to cart" %}
+    </button>
+</form>
