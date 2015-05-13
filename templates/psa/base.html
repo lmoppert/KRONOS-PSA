@@ -44,7 +44,7 @@
                     href="{% url 'cart_detail' %}">{% trans "View Details" %}
                 </a></li>
                 <li role="presentation">
-                    <a role="menuitem" tabindex="-1" id="EmptyCart"
+                    <a role="menuitem" tabindex="-1" class="EmptyCart"
                     href="{% url 'empty_cart' %}?ref={{ request.path }}">
                     {% trans "Empty List" %}
                 </a></li>
@@ -55,9 +55,10 @@
 </ul>
 {% addtoblock "js" %}
     <script type="text/javascript">
-        $('#EmptyCart').click(function(){
+        $('.EmptyCart').click(function(){
             return confirm('{% trans "Really Delete?" %}')
         });
+        $('p:contains("Achtung!")').addClass("text-danger")
     </script>
 {% endaddtoblock %}
 {% endblock %}
