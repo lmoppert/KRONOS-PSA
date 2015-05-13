@@ -1,5 +1,5 @@
 {% extends "psa/base.html" %}
-{% load i18n psa_tags %}
+{% load i18n markdown_deux_tags %}
 
 {% block psa_content %}
 <h1>
@@ -13,16 +13,16 @@
 </h1>
 <div class="row">
     <div class="col-md-3">
-        <img src="{{ object.image.url }}"
-             alt="{% trans 'Product image' %}"
+        <img src="{{ object.image.url }}" alt="{% trans 'Product image' %}"
              class="img-responsive">
     </div>
     <div class="col-md-9">
             <div>
                 <b>{% trans "Product Number" %}:</b> {{ object.number }} 
             </div>
-            <div>{{ object.description|markup }}</div>
+            <div>{{ object.description|markdown }}</div>
             <div>{{ object.teaser }}</div>
+            <div>{% include "psa/add_item_form.html" %}</div>
     </div>
 </div>
 {% endblock psa_content %}

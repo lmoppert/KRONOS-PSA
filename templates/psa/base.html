@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n mptt_tags %}
+{% load i18n mptt_tags sekizai_tags %}
 
 {% block top_menu %}
 <ul class="nav navbar-nav">
@@ -43,14 +43,23 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1"
                     href="{% url 'cart_detail' %}">{% trans "View Details" %}
                 </a></li>
-                <!-- li role="presentation"><a role="menuitem" tabindex="-1"
-                    href="{% url 'empty_cart' %}">{% trans "Empty List" %}
-                </a></li -->
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" id="EmptyCart"
+                    href="{% url 'empty_cart' %}?ref={{ request.path }}">
+                    {% trans "Empty List" %}
+                </a></li>
             {% endif %}
         </ul>
         {% endwith %}
     </li>
 </ul>
+{% addtoblock "js" %}
+    <script type="text/javascript">
+        $('#EmptyCart').click(function(){
+            return confirm('{% trans "Really Delete?" %}')
+        });
+    </script>
+{% endaddtoblock %}
 {% endblock %}
 
 {% block topright_menu %}
@@ -71,24 +80,13 @@
     <div class="row">
         <div class="col-md-4">
             {% block psa_navigation %}
-            <!-- form role="filter" action="#" method="post"
-                onChange="this.form.submit()" >{% csrf_token %}
-                <div class="row">
-                    <div class="col-sm-8">
-                        <select id="SelectLocation" class="form-control"
-                            name="SelectedLocation">
-                            <option value="LEV">Leverkusen</option>
-                            <option value="NHM">Nordenham</option>
-                        </select>
-                    </div>
-                </div>
-            </form -->
             <h3 style="color:#0E509C">{% trans "Categories" %}</h3>
             <ul class="list-unstyled">
                 {% recursetree nodes %}
                 <li {% if node.id = category.id %} class="active-node" {% endif %}>
                 {% if not node.is_leaf_node %}
-                    <a data-toggle="collapse" href="#child-{{ node.id }}" class="btn btn-xs" aria-expanded="false" aria-controls="collapse">
+                    <a data-toggle="collapse" href="#child-{{ node.id }}"
+                        class="btn btn-xs" aria-expanded="false" aria-controls="collapse">
                         {% if node.is_child_node %}
                             <span class="glyphicon glyphicon-plus-sign"
                                 style="margin-left:25px;" aria-hidden="true"></span>

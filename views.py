@@ -1,9 +1,10 @@
 # vim: set fileencoding=utf-8 :
 """Views for the psa shop."""
 
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, View
 from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from .forms import RequisitionForm
 from . import models
@@ -22,6 +23,16 @@ class ItemMixin(object):
         context['cart'] = self.get_or_create_cart(self.request.user)
         return context
 
+    def add_item(self, item, quantity):
+        cart = self.get_or_create_cart(self.request.user)
+        cartitem, created = cart.psaitems.get_or_create(item_id=item)
+        if created:
+            cartitem.quantity = int(quantity)
+        else:
+            cartitem.quantity += int(quantity)
+        cartitem.save()
+        return _("Items have been added to your cart")
+
 
 class ItemListView(ItemMixin, ListView):
     pass
@@ -32,6 +43,7 @@ class ItemDetailView(ItemMixin, DetailView):
 
 
 class ItemDetail(FormMixin, ItemDetailView):
+    context_object_name = "item"
     model = models.PSAProduct
 
     def get(self, request, *args, **kwargs):
@@ -41,22 +53,23 @@ class ItemDetail(FormMixin, ItemDetailView):
         )
         return self.render_to_response(context)
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        message = self.add_item(request.POST['item'], request.POST['quantity'])
+        context = self.get_context_data(
+            active_id=self.object.category.parent_id,
+            message=message
+        )
+        return self.render_to_response(context)
+
 
 class ItemList(FormMixin, ItemListView):
     model = models.PSAProduct
 
-    def add_item(self, item, quantity):
-        cart = self.get_or_create_cart(self.request.user)
-        cartitem, created = cart.psaitems.get_or_create(item_id=item)
-        if created:
-            cartitem.quantity = int(quantity)
-        else:
-            cartitem.quantity += int(quantity)
-        cartitem.save()
-        return "Item {} added {} times".format(item, quantity)
-
     def get_queryset(self):
-        return models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
+        return models.PSAProduct.objects.filter(
+            category_id=self.kwargs['pk']
+        )
 
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
@@ -128,7 +141,7 @@ class CartDetail(FormMixin, ItemDetailView):
     def get(self, request, *args, **kwargs):
         self.initial = models.PSARequisition.objects.create
         self.object = models.PSACart.objects.filter(
-            processed=False).get(user=request.user)
+            processed=False).get_or_create(user=request.user)
         form = self.get_empty_form(request)
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
@@ -141,8 +154,12 @@ class CartDetail(FormMixin, ItemDetailView):
         if form.is_valid():
             requisition = self.create_requisition(form)
             self.save_user_profile(user, requisition)
-            return redirect(requisition)
-        if "ch_item" in request.POST:
+            cart = models.PSACart.objects.filter(processed=False).get(user=user)
+            cart.processed = True
+            cart.save()
+            context = self.get_context_data(requisition=requisition,
+                                            printed=True)
+        elif "ch_item" in request.POST:
             item = self.object.psaitems.get(id=request.POST['ch_item'])
             item.quantity = int(request.POST['quantity'])
             item.save()
@@ -154,6 +171,15 @@ class CartDetail(FormMixin, ItemDetailView):
         else:
             context = self.get_context_data(form=form, submitted=True)
         return self.render_to_response(context)
+
+
+class EmptyCart(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        cart = models.PSACart.objects.filter(processed=False).get(user=user)
+        cart.processed = True
+        cart.save()
+        return redirect(request.GET['ref'])
 
 
 class RequisitionDetail(DetailView):

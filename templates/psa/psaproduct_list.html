@@ -1,5 +1,5 @@
 {% extends "psa/base.html" %}
-{% load i18n psa_tags sekizai_tags %}
+{% load i18n markdown_deux_tags sekizai_tags %}
 
 {% block psa_content %}
 <h1>
@@ -19,14 +19,14 @@
 </div>
 {% endif %}
 <div class="panel panel-default">
-    <div class="panel-body" style="color:#41940e;">
-        {{ category.teaser|markup }}
+    <div class="panel-body">
+        {{ category.teaser|markdown }}
     </div>
 </div>
 <table class="table table-bordered table-striped">
     {% for item in object_list %}
     <tr>
-        <td>
+        <td width="120">
             <img src="{{ item.image.url }}" 
                  alt="{% trans 'Product image' %}"
                  class="img-responsive" 
@@ -41,21 +41,9 @@
             <div>
                 <b>{% trans "Product Number" %}:</b> {{ item.number }}
             </div>
-            <div>{{ item.description|markup }}</div>
+            <div>{{ item.description|markdown }}</div>
             <div>{{ item.teaser }}</div>
-            <div>
-                <form id="add_item_{{ item.id }}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" value="{{ item.id }}" name="item">
-                    <div class="col-xs-2">
-                        <input class="text_input textInput form-control"
-                        type="number" name="quantity" maxlength="5" value="1">
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        {% trans "Add to cart" %}
-                    </button>
-                </form>
-            </div>
+            <div>{% include "psa/add_item_form.html" %}</div>
         </td>
     </tr>
     {% endfor %}

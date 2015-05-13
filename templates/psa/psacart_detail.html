@@ -7,12 +7,25 @@
         <script type="text/javascript">
             $(function (){
                 $('#CartForm').modal('show');
-            })
+            });
+        </script>
+    {% endaddtoblock %}
+{% endif %}
+{% if printed %}
+    {% addtoblock "js" %}
+        <script type="text/javascript">
+            $(function(){
+                window.open(
+                    '{% url "requisition_detail" requisition.id %}',
+                    '{% trans "Requisition" %}'
+                );
+            });
         </script>
     {% endaddtoblock %}
 {% endif %}
 
 <h1>{% trans 'Cart Details' %}</h1>
+{% if cart.psaitems.count > 0 %}
 <table class="table table-bordered table-striped">
     <tr>
         <th>{% trans 'Image' %}</th>
@@ -96,11 +109,19 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"
                     data-dismiss="modal">{% trans "Cancel" %}</button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="PrintCart">
                     {% trans "Print Cart" %}</button>
             </div>
             </form>
         </div>
     </div>
 </div>
+{% else %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        {% trans "There are no items on the list, yet" %}
+    </div>
+</div>
+{% endif %}
+
 {% endblock psa_content %}
