@@ -38,7 +38,7 @@ class PSACategory(MPTTModel):
         return self.name
 
     class Meta:
-        ordering = ('name', )
+        ordering = ('order', )
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
 

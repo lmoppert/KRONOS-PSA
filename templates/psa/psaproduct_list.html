@@ -43,7 +43,7 @@
             </div>
             <div>{{ item.description|markdown }}</div>
             <div>{{ item.teaser }}</div>
-            <div>{% include "psa/add_item_form.html" %}</div>
+            {% include "psa/add_item_form.html" %}
         </td>
     </tr>
     {% endfor %}
