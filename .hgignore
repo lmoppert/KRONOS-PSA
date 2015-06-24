@@ -1,6 +1,5 @@
 syntax: glob
 
-migrations/*
 .DS_Store
 .settings
 .project
