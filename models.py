@@ -53,10 +53,14 @@ class PSACategory(MPTTModel):
 class PSAProduct(models.Model):
     "Class defining a shop item"
     LOCATIONS = (('KRO', 'KRONOS'), ('LEV', 'Leverkusen'), ('NHM', 'Nordenham'))
+    HELP = """Use Markdown to format text. Additionally, Place "**Achtung!**" on
+    one line and this line an all following lines until the first empty line
+    will be marked red. If you want to force a line break, use two spaces at the
+    end of the line."""
 
     name = models.CharField(max_length=200, verbose_name=_("PSA Item"))
     number = models.CharField(max_length=50, verbose_name=_("Article Number"))
-    description = models.TextField(blank=True, default='',
+    description = models.TextField(blank=True, default='', help_text=HELP,
                                    verbose_name=_("Description"))
     image = FilerImageField(null=True, blank=True, verbose_name=_("Image"))
     location = models.CharField(max_length=3, choices=LOCATIONS, default="KRO",
