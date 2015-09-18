@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200, verbose_name='PSA Item')),
                 ('number', models.CharField(max_length=50, verbose_name='Article Number')),
-                ('description', models.TextField(default=b'', verbose_name='Description', blank=True)),
+                ('description', models.TextField(default=b'', help_text=b'Use Markdown to format text. If you want to force a line break,\n        use two spaces at the end of the line.', verbose_name='Description', blank=True)),
                 ('location', models.CharField(default=b'KRO', max_length=3, verbose_name='Location', choices=[(b'KRO', b'KRONOS'), (b'LEV', b'Leverkusen'), (b'NHM', b'Nordenham')])),
                 ('active', models.BooleanField(default=False)),
                 ('category', models.ForeignKey(verbose_name='Category', to='psa.PSACategory')),
