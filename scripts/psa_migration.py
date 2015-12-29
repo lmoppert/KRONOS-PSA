@@ -1,6 +1,6 @@
 # from django.contrib.auth.models import User
 from filer.models.filemodels import File
-from psa.models import PSAItem, PSACategory
+from psa.models import PSAProduct, PSACategory
 from psa.legacy import StoreProducts, StoreCategories
 
 
@@ -52,12 +52,19 @@ def create_items():
     for obj in objs:
         count += 1
         category = PSACategory.objects.get(pk=obj.category.pid)
-        PSAItem.objects.create(
+        if "(Lev" in obj.name or "LEV" in obj.name:
+            location = "LEV"
+        elif "Nordenh" in obj.name or "NHM" in obj.name:
+            location = "NHM"
+        else:
+            location = "KRO"
+        PSAProduct.objects.create(
             name=obj.name,
             number=obj.number,
             description=obj.description,
             image=get_file_handle(obj.image),
             category=category,
+            location=location,
         )
     print "... {} Items migrated".format(count)
 
