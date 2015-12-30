@@ -1,10 +1,10 @@
 # vim: set fileencoding=utf-8 :
-from psa.models import PSAItem
+from psa.models import PSAProduct
 import re
 
 
 def run():
-    for item in PSAItem.objects.all():
+    for item in PSAProduct.objects.all():
         text = item.description
         text = re.sub(u'(Absperrband:)', '**\\1**', text)
         text = re.sub(u'(Beschreibung:)', '**\\1**', text)

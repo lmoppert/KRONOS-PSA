@@ -1,10 +1,10 @@
-from psa.models import PSAItem
+from psa.models import PSAProduct
 import re
 
 
 def run():
     print "Searching for location strings in names..."
-    for item in PSAItem.objects.all():
+    for item in PSAProduct.objects.all():
         item.name = re.sub("\(Leverkusen\)", '', item.name)
         item.name = re.sub("\(Leverku", '', item.name)
         item.name = re.sub("\(Le", '', item.name)

@@ -1,4 +1,4 @@
-from psa.models import PSAItem, PSACategory
+from psa.models import PSAProduct, PSACategory
 from HTMLParser import HTMLParser
 from html2text import html2text
 
@@ -20,7 +20,7 @@ def decode_teaser():
 
 def decode_description():
     print "Decoding item description text..."
-    for item in PSAItem.objects.all():
+    for item in PSAProduct.objects.all():
         item.description = html2text(item.description)
         item.save()
     print "...Done"
