@@ -26,18 +26,18 @@ class CategoryAdmin(MPTTModelAdmin, SortableModelAdmin):
 
 
 @admin.register(PSAProduct)
-class ItemAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = ('number', 'name', 'active', 'location', 'category')
     list_filter = ('category', 'location', 'active')
     search_fields = ('name', 'number', 'description')
-    actions = ('archive_items', 'unarchive_items')
+    actions = ('activate_items', 'deactivate_items')
 
-    def archive_items(self, request, queryset):
+    def activate_items(self, request, queryset):
         queryset.update(active=True)
-    archive_items.short_description = _(
-        "Move selected items to archive")
+    activate_items.short_description = _(
+        "Activate selected items")
 
-    def unarchive_items(self, request, queryset):
+    def deactivate_items(self, request, queryset):
         queryset.update(active=False)
-    unarchive_items.short_description = _(
-        "Remove selected items from archive")
+    deactivate_items.short_description = _(
+        "Deactivate selected items")
