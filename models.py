@@ -29,7 +29,7 @@ class PSACategory(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True,
                             related_name='children', db_index=True)
     order = models.PositiveIntegerField(default=1)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('item_list', kwargs={'pk': self.pk})
