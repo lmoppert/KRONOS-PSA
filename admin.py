@@ -9,20 +9,20 @@ from psa.models import PSACategory, PSAProduct
 class CategoryAdmin(MPTTModelAdmin, SortableModelAdmin):
     mptt_level_indent = 20
     list_display = ('name', 'description', 'active')
-    list_filter = ('active', )
+    list_filter = ('active', 'level')
     search_fields = ('name', 'description', 'teaser')
     sortable = 'order'
     actions = ('archive_categories', 'unarchive_categories')
 
-    def archive_categories(self, request, queryset):
+    def activate_categories(self, request, queryset):
         queryset.update(active=True)
-    archive_categories.short_description = _(
-        "Move selected categories to archive")
+    activate_categories.short_description = _(
+        "Activate selected categories")
 
-    def unarchive_categories(self, request, queryset):
+    def deactivate_categories(self, request, queryset):
         queryset.update(active=False)
-    unarchive_categories.short_description = _(
-        "Remove selected categories from archive")
+    deactivate_categories.short_description = _(
+        "Deactivate selected categories")
 
 
 @admin.register(PSAProduct)

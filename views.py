@@ -5,6 +5,7 @@ from django.views.generic import DetailView, ListView, View
 from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Q
 from django.shortcuts import redirect
 from .forms import RequisitionForm
 from . import models
@@ -35,10 +36,12 @@ class ItemMixin(object):
 
 
 class ItemListView(ItemMixin, ListView):
+    "Generic View that adds the ItemMixin to the ListView"
     pass
 
 
 class ItemDetailView(ItemMixin, DetailView):
+    "Generic View that adds the ItemMixin to the DetailView"
     pass
 
 
@@ -67,9 +70,12 @@ class ItemList(FormMixin, ItemListView):
     model = models.PSAProduct
 
     def get_queryset(self):
-        return models.PSAProduct.objects.filter(
-            category_id=self.kwargs['pk']
-        )
+        qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
+        if False:
+            qs = qs.filter(Q(location='LEV') | Q(location='KRO'))
+        elif False:
+            qs = qs.filter(Q(location='NHM') | Q(location='KRO'))
+        return qs
 
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()

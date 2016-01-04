@@ -5,5 +5,5 @@ import re
 
 def run():
     for item in PSAProduct.objects.all():
-        item.description = re.sub('\\\\  -', '  -', item.description)
+        item.description = re.sub('  -', '-', item.description)
         item.save()
