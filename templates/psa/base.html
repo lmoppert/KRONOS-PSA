@@ -63,8 +63,7 @@
 {% endaddtoblock %}
 {% endblock %}
 
-{% block topright_menu %}
-{% endblock %}
+{% block topright_menu %}{% endblock %}
 
 {% block base_content %}
 <div id="messages">
@@ -80,6 +79,7 @@
 <div id="content">
     <div class="row">
         <div class="col-md-4">
+            {% block psa_filter %}{% endblock %}
             {% block psa_navigation %}
             <h3 style="color:#0E509C">{% trans "Categories" %}</h3>
             <ul class="list-unstyled">

@@ -6,7 +6,9 @@ from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
+from django.http import HttpResponse, HttpResponseNotAllowed
 from .forms import RequisitionForm
 from . import models
 
@@ -68,26 +70,44 @@ class ItemDetail(FormMixin, ItemDetailView):
 
 class ItemList(FormMixin, ItemListView):
     model = models.PSAProduct
+    flags = [True, False, False]
 
-    def get_queryset(self):
+    def get_flags(self, request, location):
+        if location == 'LEV':
+            return [False, True, False]
+        elif location == 'NHM':
+            return [False, False, True]
+        return [True, False, False]
+
+    def get_queryset(self, location):
         qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
-        if False:
-            qs = qs.filter(Q(location='LEV') | Q(location='KRO'))
-        elif False:
-            qs = qs.filter(Q(location='NHM') | Q(location='KRO'))
+        if not location == 'All':
+            qs = qs.filter(Q(location=location) | Q(location='KRO'))
         return qs
 
     def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
+        if 'location' in request.GET:
+            location = request.GET['location']
+            request.session['location'] = location
+            if location == 'All':
+                del request.session['location']
+        else:
+            if 'location' in request.session:
+                location = request.session['location']
+            else:
+                location = 'All'
+        flags = self.get_flags(request, location)
+        self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         context = self.get_context_data(
             category=category,
             active_id=category.parent_id,
+            location=flags,
         )
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
+        self.object_list = self.get_queryset(request)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         message = self.add_item(request.POST['item'], request.POST['quantity'])
         context = self.get_context_data(
