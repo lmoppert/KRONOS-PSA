@@ -58,7 +58,7 @@
         $('.EmptyCart').click(function(){
             return confirm('{% trans "Really Delete?" %}')
         });
-        $('p:contains("Achtung!")').addClass("alert alert-danger")
+        $('p:contains("Achtung!")').addClass("alert alert-danger");
     </script>
 {% endaddtoblock %}
 {% endblock %}
@@ -107,7 +107,9 @@
                     </a>
                     {% endif %}
                 {% endif %}
-                    <a href="{% url 'item_list' node.id %}">{{ node.name }}</a>
+                    <a href="{% url 'item_list' node.id %}" class="node_text">
+                        {{ node.name }}
+                    </a>
                 </li>
                 {% if not node.is_leaf_node %}
                     <ul class="children list-unstyled collapse
@@ -119,6 +121,9 @@
                 </li>
                 {% endrecursetree %}
             </ul>
+            {% addtoblock "css" %}
+            .active-node a.node_text {font-weight:bold;}
+            {% endaddtoblock %}
             {% endblock %}
         </div>
         <div class="col-md-8">
