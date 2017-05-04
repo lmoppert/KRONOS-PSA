@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-30 10:43+0100\n"
+"POT-Creation-Date: 2016-08-22 11:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin.py:20
-msgid "Move selected categories to archive"
+msgid "Activate selected categories"
 msgstr ""
 
 #: admin.py:25
-msgid "Remove selected categories from archive"
+msgid "Deactivate selected categories"
 msgstr ""
 
 #: admin.py:38
@@ -87,6 +87,16 @@ msgstr ""
 
 #: models.py:43 templates/psa/base.html:84
 msgid "Categories"
+msgstr ""
+
+#: models.py:56
+msgid ""
+"Use Markdown to format text. Additionally, Place \"**Achtung!**\" on\n"
+"    one line and this line an all following lines until the first empty "
+"line\n"
+"    will be marked red. If you want to force a line break, use two spaces at "
+"the\n"
+"    end of the line."
 msgstr ""
 
 #: models.py:61 models.py:91
@@ -176,7 +186,7 @@ msgstr ""
 
 #: templates/psa/psacart_detail.html:32
 #: templates/psa/psaproduct_detail.html:21
-#: templates/psa/psaproduct_list.html:42
+#: templates/psa/psaproduct_list.html:61
 msgid "Product Number"
 msgstr ""
 
@@ -186,7 +196,7 @@ msgstr ""
 
 #: templates/psa/psacart_detail.html:41
 #: templates/psa/psaproduct_detail.html:16
-#: templates/psa/psaproduct_list.html:31
+#: templates/psa/psaproduct_list.html:50
 msgid "Product image"
 msgstr ""
 
@@ -210,6 +220,14 @@ msgstr ""
 msgid "There are no items on the list, yet"
 msgstr ""
 
+#: templates/psa/psaproduct_list.html:5
+msgid "Filter"
+msgstr ""
+
+#: templates/psa/psaproduct_list.html:10
+msgid "All"
+msgstr ""
+
 #: templates/psa/psarequisition_detail.html:10
 msgid "Send signed to..."
 msgstr ""
@@ -230,6 +248,6 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: views.py:34
+#: views.py:37
 msgid "Items have been added to your cart"
 msgstr ""
