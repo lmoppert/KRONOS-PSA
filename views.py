@@ -6,9 +6,9 @@ from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
-from django.http import HttpResponse, HttpResponseNotAllowed
+# from django.http import HttpResponse, HttpResponseNotAllowed
 from .forms import RequisitionForm
 from . import models
 
@@ -97,6 +97,7 @@ class ItemList(FormMixin, ItemListView):
             else:
                 location = 'All'
         flags = self.get_flags(request, location)
+        flags = [True, False, False]
         self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         context = self.get_context_data(
