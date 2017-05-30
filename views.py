@@ -79,13 +79,7 @@ class ItemList(ItemListView):
             return [False, False, True]
         return [True, False, False]
 
-    def get_queryset(self, location):
-        qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
-        if not location == 'All':
-            qs = qs.filter(Q(location=location) | Q(location='KRO'))
-        return qs
-
-    def get(self, request, *args, **kwargs):
+    def get_location(self, request):
         if 'location' in request.GET:
             location = request.GET['location']
             request.session['location'] = location
@@ -96,8 +90,17 @@ class ItemList(ItemListView):
                 location = request.session['location']
             else:
                 location = 'All'
+        return location
+
+    def get_queryset(self, location):
+        qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
+        if not location == 'All':
+            qs = qs.filter(Q(location=location) | Q(location='KRO'))
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        location = self.get_location(request)
         flags = self.get_flags(request, location)
-        flags = [True, False, False]
         self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         context = self.get_context_data(
