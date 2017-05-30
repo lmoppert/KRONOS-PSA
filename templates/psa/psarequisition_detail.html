@@ -52,5 +52,12 @@
     {% endfor %}
 </table>
 {% endblock %}
-{% block footer %}{% endblock %}
+{% block footer %}
+<div class="hidden-print" style="padding: 20px 50px;">
+    <a href="{% url 'psa_home' %}" role="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        {% trans "Back to the PSA website" %}
+    </a>
+</div>
+{% endblock %}
 

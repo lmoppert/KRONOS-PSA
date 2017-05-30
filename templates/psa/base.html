@@ -121,13 +121,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('.EmptyCart').click(function(){
+        return confirm('{% trans "Really Delete?" %}')
+    });
+    $('p:contains("Achtung!")').addClass("alert alert-danger");
+</script>
 {% endblock %}
 
-{% block extra_js %}
-    <script type="text/javascript">
-        $('.EmptyCart').click(function(){
-            return confirm('{% trans "Really Delete?" %}')
-        });
-        $('p:contains("Achtung!")').addClass("alert alert-danger");
-    </script>
-{% endblock %}
