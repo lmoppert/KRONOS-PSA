@@ -68,7 +68,7 @@ class ItemDetail(FormMixin, ItemDetailView):
         return self.render_to_response(context)
 
 
-class ItemList(FormMixin, ItemListView):
+class ItemList(ItemListView):
     model = models.PSAProduct
     flags = [True, False, False]
 
