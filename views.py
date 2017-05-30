@@ -115,7 +115,7 @@ class ItemList(FormMixin, ItemListView):
     def post(self, request, *args, **kwargs):
         location = self.get_location(request)
         flags = self.get_flags(request, location)
-        self.object_list = self.get_queryset(request)
+        self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         message = self.add_item(request.POST['item'], request.POST['quantity'])
         context = self.get_context_data(
