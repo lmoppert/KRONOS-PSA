@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PSA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 11:53+0200\n"
+"POT-Creation-Date: 2017-05-30 16:34+0200\n"
 "PO-Revision-Date: 2015-04-28 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -37,7 +37,7 @@ msgid "Name"
 msgstr "Name"
 
 #: forms.py:15 models.py:15 models.py:67 models.py:109
-#: templates/psa/psacart_detail.html:33
+#: templates/psa/psacart_detail.html:11
 msgid "Location"
 msgstr "Standort"
 
@@ -84,7 +84,7 @@ msgstr "Beschreibung"
 msgid "Teaser"
 msgstr "Einleitung"
 
-#: models.py:43 templates/psa/base.html:84
+#: models.py:43 templates/psa/base.html:76
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -98,8 +98,8 @@ msgid ""
 "    end of the line."
 msgstr ""
 "Zur formatierung des Textes bitte Markdown verwenden. Text, der mit "
-"\"**Achtung!**\" beginnt wird bis zur nächsten Leerzeile rot markiert."
-"Um einen Zeilenumbruch zu erzwingen, die Zeile mit zwei Leerzeichen beenden."
+"\"**Achtung!**\" beginnt wird bis zur nächsten Leerzeile rot markiert.Um "
+"einen Zeilenumbruch zu erzwingen, die Zeile mit zwei Leerzeichen beenden."
 
 #: models.py:61 models.py:91
 msgid "PSA Item"
@@ -109,7 +109,7 @@ msgstr "Artikel"
 msgid "Article Number"
 msgstr "Artikelnummer"
 
-#: models.py:65 templates/psa/psacart_detail.html:31
+#: models.py:65 templates/psa/psacart_detail.html:9
 msgid "Image"
 msgstr "Bild"
 
@@ -133,7 +133,7 @@ msgstr "Abgeschlossen"
 msgid "PSA Cart"
 msgstr "Entnahmeliste"
 
-#: models.py:94 templates/psa/psacart_detail.html:35
+#: models.py:94 templates/psa/psacart_detail.html:13
 msgid "Quantity"
 msgstr "Menge"
 
@@ -145,11 +145,11 @@ msgstr "Frontend"
 msgid "Add to cart"
 msgstr "Zur Entnahmeliste hinzufügen"
 
-#: templates/psa/base.html:8
+#: templates/psa/base.html:12
 msgid "SHE InfoNet"
 msgstr "SHE InfoNet"
 
-#: templates/psa/base.html:12
+#: templates/psa/base.html:16
 msgid "Chemicals"
 msgstr "Chemikalien"
 
@@ -165,56 +165,54 @@ msgstr "Ihre Entnahmeliste ist bisher leer"
 msgid "View Details"
 msgstr "Inhalt anzeigen"
 
-#: templates/psa/base.html:49 templates/psa/psacart_detail.html:92
+#: templates/psa/base.html:49 templates/psa/psacart_detail.html:70
 msgid "Empty List"
 msgstr "Inhalt löschen"
 
-#: templates/psa/base.html:59
+#: templates/psa/base.html:126
 msgid "Really Delete?"
 msgstr "Wirklich leeren?"
 
-#: templates/psa/psacart_detail.html:20 templates/psa/psacart_detail.html:104
-#: templates/psa/psarequisition_detail.html:9
-msgid "Requisition"
-msgstr "Entnahmeschein"
-
-#: templates/psa/psacart_detail.html:27
+#: templates/psa/psacart_detail.html:5
 msgid "Cart Details"
 msgstr "Entnahmeliste"
 
-#: templates/psa/psacart_detail.html:32
-#: templates/psa/psaproduct_detail.html:21
+#: templates/psa/psacart_detail.html:10 templates/psa/psaproduct_detail.html:21
 #: templates/psa/psaproduct_list.html:61
 msgid "Product Number"
 msgstr "Artikelnummer"
 
-#: templates/psa/psacart_detail.html:34
+#: templates/psa/psacart_detail.html:12
 msgid "Product"
 msgstr "Produkt"
 
-#: templates/psa/psacart_detail.html:41
-#: templates/psa/psaproduct_detail.html:16
+#: templates/psa/psacart_detail.html:19 templates/psa/psaproduct_detail.html:16
 #: templates/psa/psaproduct_list.html:50
 msgid "Product image"
 msgstr "Produkt-Bild"
 
-#: templates/psa/psacart_detail.html:64
+#: templates/psa/psacart_detail.html:42
 msgid "Change quantity"
 msgstr "Speichern"
 
-#: templates/psa/psacart_detail.html:78
+#: templates/psa/psacart_detail.html:56
 msgid "Remove"
 msgstr "Entfernen"
 
-#: templates/psa/psacart_detail.html:89 templates/psa/psacart_detail.html:114
+#: templates/psa/psacart_detail.html:67 templates/psa/psacart_detail.html:92
 msgid "Print Cart"
 msgstr "Entnahmeschein drucken"
 
-#: templates/psa/psacart_detail.html:112
+#: templates/psa/psacart_detail.html:82
+#: templates/psa/psarequisition_detail.html:9
+msgid "Requisition"
+msgstr "Entnahmeschein"
+
+#: templates/psa/psacart_detail.html:90
 msgid "Cancel"
 msgstr "Zurück zum Katalog"
 
-#: templates/psa/psacart_detail.html:123
+#: templates/psa/psacart_detail.html:101
 msgid "There are no items on the list, yet"
 msgstr "Es sind bisher keine Artikel auf der Entnahmeliste"
 
@@ -245,6 +243,10 @@ msgstr "Pos."
 #: templates/psa/psarequisition_detail.html:43
 msgid "Count"
 msgstr "Anzahl"
+
+#: templates/psa/psarequisition_detail.html:59
+msgid "Back to the PSA website"
+msgstr "Zurück zur PSA Seite"
 
 #: views.py:37
 msgid "Items have been added to your cart"

@@ -50,6 +50,7 @@ class ItemDetailView(ItemMixin, DetailView):
 class ItemDetail(FormMixin, ItemDetailView):
     context_object_name = "item"
     model = models.PSAProduct
+    form_class = RequisitionForm
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -68,9 +69,10 @@ class ItemDetail(FormMixin, ItemDetailView):
         return self.render_to_response(context)
 
 
-class ItemList(ItemListView):
+class ItemList(FormMixin, ItemListView):
     model = models.PSAProduct
     flags = [True, False, False]
+    form_class = RequisitionForm
 
     def get_flags(self, request, location):
         if location == 'LEV':
@@ -111,13 +113,16 @@ class ItemList(ItemListView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset(request)
+        location = self.get_location(request)
+        flags = self.get_flags(request, location)
+        self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])
         message = self.add_item(request.POST['item'], request.POST['quantity'])
         context = self.get_context_data(
             category=category,
             active_id=category.parent_id,
-            message=message
+            location=flags,
+            message=message,
         )
         return self.render_to_response(context)
 
@@ -126,6 +131,7 @@ class CartDetail(FormMixin, ItemDetailView):
     model = models.PSACart
     context_object_name = 'cart'
     success_url = reverse_lazy('psa_home')
+    form_class = RequisitionForm
 
     def save_user_profile(self, user, data):
         profile = user.psaprofile
@@ -187,8 +193,7 @@ class CartDetail(FormMixin, ItemDetailView):
             cart = models.PSACart.objects.filter(processed=False).get(user=user)
             cart.processed = True
             cart.save()
-            context = self.get_context_data(requisition=requisition,
-                                            printed=True)
+            return redirect('requisition_detail', requisition.id)
         elif "ch_item" in request.POST:
             item = self.object.psaitems.get(id=request.POST['ch_item'])
             item.quantity = int(request.POST['quantity'])

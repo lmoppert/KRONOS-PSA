@@ -2,28 +2,6 @@
 {% load i18n psa_tags crispy_forms_tags %}
 
 {% block psa_content %}
-{% if submitted %}
-    {% addtoblock "js" %}
-        <script type="text/javascript">
-            $(function (){
-                $('#CartForm').modal('show');
-            });
-        </script>
-    {% endaddtoblock %}
-{% endif %}
-{% if printed %}
-    {% addtoblock "js" %}
-        <script type="text/javascript">
-            $(function(){
-                window.open(
-                    '{% url "requisition_detail" requisition.id %}',
-                    '{% trans "Requisition" %}'
-                );
-            });
-        </script>
-    {% endaddtoblock %}
-{% endif %}
-
 <h1>{% trans 'Cart Details' %}</h1>
 {% if cart.psaitems.count > 0 %}
 <table class="table table-bordered table-striped">
@@ -126,3 +104,5 @@
 {% endif %}
 
 {% endblock psa_content %}
+
+

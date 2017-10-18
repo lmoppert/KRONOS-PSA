@@ -49,14 +49,6 @@
         {% endwith %}
     </li>
 </ul>
-{% addtoblock "js" %}
-    <script type="text/javascript">
-        $('.EmptyCart').click(function(){
-            return confirm('{% trans "Really Delete?" %}')
-        });
-        $('p:contains("Achtung!")').addClass("alert alert-danger");
-    </script>
-{% endaddtoblock %}
 {% endblock %}
 
 {% block topright_menu %}{% endblock %}
@@ -80,7 +72,7 @@
             <h3 style="color:#0E509C">{% trans "Categories" %}</h3>
             <ul class="list-unstyled">
                 {% recursetree nodes %}
-                <li {% if node.id = category.id %} class="active-node" {% endif %}>
+                <li {% if node.id == category.id %} class="active-node" {% endif %}>
                 {% if not node.is_leaf_node %}
                     <a data-toggle="collapse" href="#child-{{ node.id }}"
                         class="btn btn-xs" aria-expanded="false" aria-controls="collapse">
@@ -109,7 +101,7 @@
                 </li>
                 {% if not node.is_leaf_node %}
                     <ul class="children list-unstyled collapse
-                        {% if node.id = active_id or node.id = category.id %}in{% endif %}"
+                        {% if node.id == active_id or node.id == category.id %}in{% endif %}"
                         id="child-{{ node.id }}">
                         {{ children }}
                     </ul>
@@ -117,9 +109,6 @@
                 </li>
                 {% endrecursetree %}
             </ul>
-            {% addtoblock "css" %}
-            .active-node a.node_text {font-weight:bold;}
-            {% endaddtoblock %}
             {% endblock %}
         </div>
         <div class="col-md-8">
@@ -128,4 +117,13 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+        $('.EmptyCart').click(function(){
+            return confirm('{% trans "Really Delete?" %}')
+        });
+        $('p:contains("Achtung!")').addClass("alert alert-danger");
+    </script>
 {% endblock %}
