@@ -6,9 +6,9 @@ from django.views.generic.edit import FormMixin
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
-from django.http import HttpResponse, HttpResponseNotAllowed
+# from django.http import HttpResponse, HttpResponseNotAllowed
 from .forms import RequisitionForm
 from . import models
 
@@ -68,7 +68,7 @@ class ItemDetail(FormMixin, ItemDetailView):
         return self.render_to_response(context)
 
 
-class ItemList(FormMixin, ItemListView):
+class ItemList(ItemListView):
     model = models.PSAProduct
     flags = [True, False, False]
 
@@ -79,13 +79,7 @@ class ItemList(FormMixin, ItemListView):
             return [False, False, True]
         return [True, False, False]
 
-    def get_queryset(self, location):
-        qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
-        if not location == 'All':
-            qs = qs.filter(Q(location=location) | Q(location='KRO'))
-        return qs
-
-    def get(self, request, *args, **kwargs):
+    def get_location(self, request):
         if 'location' in request.GET:
             location = request.GET['location']
             request.session['location'] = location
@@ -96,6 +90,16 @@ class ItemList(FormMixin, ItemListView):
                 location = request.session['location']
             else:
                 location = 'All'
+        return location
+
+    def get_queryset(self, location):
+        qs = models.PSAProduct.objects.filter(category_id=self.kwargs['pk'])
+        if not location == 'All':
+            qs = qs.filter(Q(location=location) | Q(location='KRO'))
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        location = self.get_location(request)
         flags = self.get_flags(request, location)
         self.object_list = self.get_queryset(location)
         category = models.PSACategory.objects.get(pk=self.kwargs['pk'])

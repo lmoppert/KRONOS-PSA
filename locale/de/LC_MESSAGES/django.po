@@ -146,16 +146,12 @@ msgid "Add to cart"
 msgstr "Zur Entnahmeliste hinzufügen"
 
 #: templates/psa/base.html:8
-msgid "Portal"
-msgstr "SHE Portal"
+msgid "SHE InfoNet"
+msgstr "SHE InfoNet"
 
 #: templates/psa/base.html:12
 msgid "Chemicals"
 msgstr "Chemikalien"
-
-#: templates/psa/base.html:16
-msgid "Legacy Portal"
-msgstr "Altes Portal"
 
 #: templates/psa/base.html:21
 msgid "View Cart"
