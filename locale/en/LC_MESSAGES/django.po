@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 11:53+0200\n"
+"POT-Creation-Date: 2018-07-26 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Teaser"
 msgstr ""
 
-#: models.py:43 templates/psa/base.html:84
+#: models.py:43 templates/psa/base.html:80
 msgid "Categories"
 msgstr ""
 
@@ -151,27 +151,23 @@ msgstr ""
 msgid "Chemicals"
 msgstr ""
 
-#: templates/psa/base.html:16
-msgid "Legacy Portal"
-msgstr ""
-
-#: templates/psa/base.html:21
+#: templates/psa/base.html:17
 msgid "View Cart"
 msgstr ""
 
-#: templates/psa/base.html:31
+#: templates/psa/base.html:27
 msgid "Your cart is empty"
 msgstr ""
 
-#: templates/psa/base.html:44
+#: templates/psa/base.html:40
 msgid "View Details"
 msgstr ""
 
-#: templates/psa/base.html:49 templates/psa/psacart_detail.html:92
+#: templates/psa/base.html:45 templates/psa/psacart_detail.html:92
 msgid "Empty List"
 msgstr ""
 
-#: templates/psa/base.html:59
+#: templates/psa/base.html:55
 msgid "Really Delete?"
 msgstr ""
 
@@ -184,8 +180,7 @@ msgstr ""
 msgid "Cart Details"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:32
-#: templates/psa/psaproduct_detail.html:21
+#: templates/psa/psacart_detail.html:32 templates/psa/psaproduct_detail.html:21
 #: templates/psa/psaproduct_list.html:61
 msgid "Product Number"
 msgstr ""
@@ -194,8 +189,7 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
-#: templates/psa/psacart_detail.html:41
-#: templates/psa/psaproduct_detail.html:16
+#: templates/psa/psacart_detail.html:41 templates/psa/psaproduct_detail.html:16
 #: templates/psa/psaproduct_list.html:50
 msgid "Product image"
 msgstr ""

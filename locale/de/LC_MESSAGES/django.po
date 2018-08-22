@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PSA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 11:53+0200\n"
+"POT-Creation-Date: 2018-07-26 16:33+0200\n"
 "PO-Revision-Date: 2015-04-28 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -84,7 +84,7 @@ msgstr "Beschreibung"
 msgid "Teaser"
 msgstr "Einleitung"
 
-#: models.py:43 templates/psa/base.html:84
+#: models.py:43 templates/psa/base.html:80
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -98,8 +98,8 @@ msgid ""
 "    end of the line."
 msgstr ""
 "Zur formatierung des Textes bitte Markdown verwenden. Text, der mit "
-"\"**Achtung!**\" beginnt wird bis zur nächsten Leerzeile rot markiert."
-"Um einen Zeilenumbruch zu erzwingen, die Zeile mit zwei Leerzeichen beenden."
+"\"**Achtung!**\" beginnt wird bis zur nächsten Leerzeile rot markiert.Um "
+"einen Zeilenumbruch zu erzwingen, die Zeile mit zwei Leerzeichen beenden."
 
 #: models.py:61 models.py:91
 msgid "PSA Item"
@@ -153,27 +153,23 @@ msgstr "SHE Portal"
 msgid "Chemicals"
 msgstr "Chemikalien"
 
-#: templates/psa/base.html:16
-msgid "Legacy Portal"
-msgstr "Altes Portal"
-
-#: templates/psa/base.html:21
+#: templates/psa/base.html:17
 msgid "View Cart"
 msgstr "Entnahmeliste"
 
-#: templates/psa/base.html:31
+#: templates/psa/base.html:27
 msgid "Your cart is empty"
 msgstr "Ihre Entnahmeliste ist bisher leer"
 
-#: templates/psa/base.html:44
+#: templates/psa/base.html:40
 msgid "View Details"
 msgstr "Inhalt anzeigen"
 
-#: templates/psa/base.html:49 templates/psa/psacart_detail.html:92
+#: templates/psa/base.html:45 templates/psa/psacart_detail.html:92
 msgid "Empty List"
 msgstr "Inhalt löschen"
 
-#: templates/psa/base.html:59
+#: templates/psa/base.html:55
 msgid "Really Delete?"
 msgstr "Wirklich leeren?"
 
@@ -186,8 +182,7 @@ msgstr "Entnahmeschein"
 msgid "Cart Details"
 msgstr "Entnahmeliste"
 
-#: templates/psa/psacart_detail.html:32
-#: templates/psa/psaproduct_detail.html:21
+#: templates/psa/psacart_detail.html:32 templates/psa/psaproduct_detail.html:21
 #: templates/psa/psaproduct_list.html:61
 msgid "Product Number"
 msgstr "Artikelnummer"
@@ -196,8 +191,7 @@ msgstr "Artikelnummer"
 msgid "Product"
 msgstr "Produkt"
 
-#: templates/psa/psacart_detail.html:41
-#: templates/psa/psaproduct_detail.html:16
+#: templates/psa/psacart_detail.html:41 templates/psa/psaproduct_detail.html:16
 #: templates/psa/psaproduct_list.html:50
 msgid "Product image"
 msgstr "Produkt-Bild"
